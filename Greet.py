@@ -1,3 +1,4 @@
+from PyQt5 import uic
 from PyQt5.QtWidgets import QWidget
 
 
@@ -8,3 +9,4 @@ class Greet(QWidget):
 
     def initUI(self, args):
         uic.loadUi('Greet.ui', self)
+        pass
