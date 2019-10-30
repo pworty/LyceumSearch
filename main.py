@@ -17,13 +17,13 @@ class main(QMainWindow):
 
         self.initUI()
 
-    def openTutorial(self, btn):
+    def openTutorial(self, e):
         '''
         Display tutorial (or not if disabled)
         Показать обучение (или нет если отключено)
         :return:
         '''
-        if btn == 'launch':
+        if e == 'launch':
             self.tutorial = Tutorial(self, self.SHOW_TUTORIAL)
         else:
             self.tutorial = Tutorial(self, 1)
