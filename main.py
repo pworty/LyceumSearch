@@ -3,31 +3,19 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDesktopWidget
 
-from Tutorial import Tutorial
 from CodeTest import CodeTest
+from Tutorial import Tutorial
+from ResetDialog import ResetDialog
+
 
 
 class main(QMainWindow):
     def __init__(self):
         super().__init__()
-
         with open("settings.txt", "r") as f:
             data = f.readlines()
         self.SHOW_TUTORIAL, = [int(d.split(' = ')[1].split('\n')[0]) for d in data]
-
         self.initUI()
-
-    def openTutorial(self, e):
-        '''
-        Display tutorial (or not if disabled)
-        Показать обучение (или нет если отключено)
-        :return:
-        '''
-        if e == 'launch':
-            self.tutorial = Tutorial(self, self.SHOW_TUTORIAL)
-        else:
-            self.tutorial = Tutorial(self, 1)
-
 
     def initUI(self):
         uic.loadUi('LyceumSearch.ui', self)
@@ -59,6 +47,8 @@ class main(QMainWindow):
         self.menuCodeTest.triggered.connect(self.openCodeTest)
 
         self.actionOpenTutorial.triggered.connect(self.openTutorial)
+
+        self.actionResetAll.triggered.connect(self.resetAll)
 
         self.actionRussian.triggered.connect(self.changeLanguage)
         self.actionEnglish.triggered.connect(self.changeLanguage)
@@ -92,6 +82,37 @@ class main(QMainWindow):
         '''
         self.codeTest = CodeTest(self)
         self.codeTest.show()
+
+    def openTutorial(self, e):
+        '''
+        Display tutorial (or not if disabled)
+        Показать обучение (или нет если отключено)
+        :return:
+        '''
+
+        # To-do:
+        # - Add actual tutorial
+
+        if e == 'launch':
+            self.tutorial = Tutorial(self, self.SHOW_TUTORIAL)
+        else:
+            self.tutorial = Tutorial(self, 1)
+
+    def resetAll(self):
+        '''
+        Resets all settings to default
+
+        Сбрасывает все настройки на изначальные
+        :return:
+        '''
+
+        # To-do:
+        # - Maybe add defaults.txt file
+
+        with open('settings.txt', "w") as f:
+            f.write(f'SHOW_TUTORIAL = 1')
+        self.resetDialog = ResetDialog(self)
+
 
     def changeLanguage(self):
         '''

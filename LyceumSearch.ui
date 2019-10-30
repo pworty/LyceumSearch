@@ -169,9 +169,16 @@
     </property>
     <addaction name="actionOpenTutorial"/>
    </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Настройки</string>
+    </property>
+    <addaction name="actionResetAll"/>
+   </widget>
    <addaction name="menuSearch"/>
    <addaction name="menuCodeTest"/>
    <addaction name="menuHelp"/>
+   <addaction name="menuSettings"/>
    <addaction name="menuLanguage"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -283,6 +290,11 @@
   <action name="actionOpenTutorial">
    <property name="text">
     <string>Открыть обучение</string>
+   </property>
+  </action>
+  <action name="actionResetAll">
+   <property name="text">
+    <string>Сбросить все</string>
    </property>
   </action>
  </widget>
