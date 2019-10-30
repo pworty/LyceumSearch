@@ -311,3 +311,7 @@ LyceumSearch.ui
 main.py
 !/main.py
 !/LyceumSearch.ui
+!/Tutorial.ui
+!/Tutorial.py
+!/CodeTest.py
+Tutorial.ui

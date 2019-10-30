@@ -3,23 +3,49 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDesktopWidget
 
-import Greet
-import CodeTest
+from Tutorial import Tutorial
+from CodeTest import CodeTest
 
 
 class main(QMainWindow):
     def __init__(self):
         super().__init__()
+
+        with open("settings.txt", "r") as f:
+            data = f.readlines()
+        self.SHOW_TUTORIAL, = [int(d.split(' = ')[1].split('\n')[0]) for d in data]
+
         self.initUI()
 
-    def Greet(self):
-        self.greet = Greet(self)
-        self.greet.show()
+    def openTutorialOnLaunch(self):
+        '''
+        Display tutorial on launch (or not if disabled)
+        Показать обучение при запуске (или нет если отключено)
+        :return:
+        '''
+
+        # To-do:
+        # - Add actual tutorial
+
+        self.tutorial = Tutorial(self, self.SHOW_TUTORIAL)
+        if self.SHOW_TUTORIAL == 1:
+            self.tutorial.show()
+
+    def openTutorial(self):
+        '''
+        Display tutorial anyway
+        Показать обучение в любом случае
+        :return:
+        '''
+        self.tutorial = Tutorial(self, 1)
+        self.tutorial.show()
 
     def initUI(self):
         uic.loadUi('LyceumSearch.ui', self)
+        self.center()
+        self.show()
 
-        self.Greet()
+        self.openTutorialOnLaunch()
 
         self.btnSearch.clicked.connect(self.search)
 
@@ -43,12 +69,11 @@ class main(QMainWindow):
 
         self.menuCodeTest.triggered.connect(self.openCodeTest)
 
+        self.actionOpenTutorial.triggered.connect(self.openTutorial)
+
         self.actionRussian.triggered.connect(self.changeLanguage)
         self.actionEnglish.triggered.connect(self.changeLanguage)
         self.actionMeme.triggered.connect(self.changeLanguage)
-
-        self.center()
-        self.show()
 
     def search(self):
         '''

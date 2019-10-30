@@ -150,9 +150,9 @@
     <addaction name="menuFirstYear"/>
     <addaction name="menuSecondYear"/>
    </widget>
-   <widget class="QMenu" name="menuTest">
+   <widget class="QMenu" name="menuCodeTest">
     <property name="title">
-     <string>Тест своего кода</string>
+     <string>Тест кода</string>
     </property>
    </widget>
    <widget class="QMenu" name="menuLanguage">
@@ -163,8 +163,15 @@
     <addaction name="actionEnglish"/>
     <addaction name="actionMeme"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Помощь</string>
+    </property>
+    <addaction name="actionOpenTutorial"/>
+   </widget>
    <addaction name="menuSearch"/>
-   <addaction name="menuTest"/>
+   <addaction name="menuCodeTest"/>
+   <addaction name="menuHelp"/>
    <addaction name="menuLanguage"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -271,6 +278,11 @@
   <action name="actionMeme">
    <property name="text">
     <string>Meme</string>
+   </property>
+  </action>
+  <action name="actionOpenTutorial">
+   <property name="text">
+    <string>Открыть обучение</string>
    </property>
   </action>
  </widget>
