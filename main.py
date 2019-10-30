@@ -17,35 +17,24 @@ class main(QMainWindow):
 
         self.initUI()
 
-    def openTutorialOnLaunch(self):
+    def openTutorial(self, btn):
         '''
-        Display tutorial on launch (or not if disabled)
-        Показать обучение при запуске (или нет если отключено)
+        Display tutorial (or not if disabled)
+        Показать обучение (или нет если отключено)
         :return:
         '''
+        if btn == 'launch':
+            self.tutorial = Tutorial(self, self.SHOW_TUTORIAL)
+        else:
+            self.tutorial = Tutorial(self, 1)
 
-        # To-do:
-        # - Add actual tutorial
-
-        self.tutorial = Tutorial(self, self.SHOW_TUTORIAL)
-        if self.SHOW_TUTORIAL == 1:
-            self.tutorial.show()
-
-    def openTutorial(self):
-        '''
-        Display tutorial anyway
-        Показать обучение в любом случае
-        :return:
-        '''
-        self.tutorial = Tutorial(self, 1)
-        self.tutorial.show()
 
     def initUI(self):
         uic.loadUi('LyceumSearch.ui', self)
         self.center()
         self.show()
 
-        self.openTutorialOnLaunch()
+        self.openTutorial('launch')
 
         self.btnSearch.clicked.connect(self.search)
 
@@ -81,6 +70,10 @@ class main(QMainWindow):
         Поиск по выбранным секциям (Все, Первый год, Второй год)
         :return:
         '''
+
+        # To-do:
+        # - Add links
+
         pass
 
     def changeSection(self):

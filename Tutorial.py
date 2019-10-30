@@ -6,13 +6,15 @@ class Tutorial(QWidget):
     def __init__(self, *args):
         super().__init__()
 
-        self.SHOW_TUTORIAL = args
+        self.SHOW_TUTORIAL = args[1]
 
         self.initUI()
 
     def initUI(self):
         uic.loadUi('Tutorial.ui', self)
         self.checkBoxShowTutorial.stateChanged.connect(self.showTutorial)
+        if self.SHOW_TUTORIAL == 1:
+            self.show()
 
     def showTutorial(self, state):
         if state == QtCore.Qt.Checked:
