@@ -8,7 +8,6 @@ from Tutorial import Tutorial
 from ResetDialog import ResetDialog
 
 
-
 class main(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -105,14 +104,11 @@ class main(QMainWindow):
         Сбрасывает все настройки на изначальные
         :return:
         '''
-
-        # To-do:
-        # - Maybe add defaults.txt file
-
+        with open("defaults.txt", "r") as f:
+            data = f.readlines()
         with open('settings.txt', "w") as f:
-            f.write(f'SHOW_TUTORIAL = 1')
+            f.write('\n'.join(data))
         self.resetDialog = ResetDialog(self)
-
 
     def changeLanguage(self):
         '''
