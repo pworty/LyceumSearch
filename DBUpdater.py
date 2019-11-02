@@ -19,7 +19,7 @@ class DBUpdater(QWidget):
 
     def addRecord(self):
         '''
-        Adds a record to the database
+        Adds the record to the database
 
         Добавляет запись в базу данных
         :return:
@@ -38,7 +38,6 @@ class DBUpdater(QWidget):
             cur.execute(f"""INSERT INTO {self.DB_NAME} (Name, Year, Type, Keywords, Link)
             VALUES ('{Name}', {Year}, '{Type}', '{Keywords}', '{Link}');""")
             self.labelRecordAdded.setText(f'Record added!')
-            print(cur.execute("""SELECT * FROM lyceumTable;""").fetchall())
         except sqlite3.Error as error:
             self.plainTextEditName.clear()
             self.plainTextEditYear.clear()
@@ -50,3 +49,13 @@ class DBUpdater(QWidget):
             if con:
                 con.commit()
                 con.close()
+
+    def updateRecord(self):
+        '''
+        Updates the record of the database
+
+        Обгновляет запись в базе данных
+        :return:
+        '''
+        # TODO: add interface switch through QMenu and QAction
+        pass

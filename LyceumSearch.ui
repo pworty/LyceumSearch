@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>580</width>
-    <height>445</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,9 @@
    <widget class="QPushButton" name="btnSearch">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>660</x>
       <y>100</y>
-      <width>120</width>
+      <width>125</width>
       <height>40</height>
      </rect>
     </property>
@@ -32,23 +32,13 @@
      <string>Поиск</string>
     </property>
    </widget>
-   <widget class="QListView" name="listViewResults">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>150</y>
-      <width>325</width>
-      <height>250</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="lblProblemName">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>87</y>
-      <width>90</width>
-      <height>60</height>
+      <y>80</y>
+      <width>110</width>
+      <height>80</height>
      </rect>
     </property>
     <property name="font">
@@ -57,8 +47,8 @@
      </font>
     </property>
     <property name="text">
-     <string>Название
-задачи</string>
+     <string>Ключевые
+слова</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -67,19 +57,27 @@
    <widget class="QPlainTextEdit" name="plainTextSearchField">
     <property name="geometry">
      <rect>
-      <x>110</x>
+      <x>125</x>
       <y>100</y>
-      <width>325</width>
+      <width>525</width>
       <height>40</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="plainText">
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="lblSection">
     <property name="geometry">
      <rect>
-      <x>110</x>
+      <x>200</x>
       <y>7</y>
-      <width>325</width>
+      <width>400</width>
       <height>80</height>
      </rect>
     </property>
@@ -98,6 +96,49 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QTableWidget" name="tableWidgetResults">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>775</width>
+      <height>400</height>
+     </rect>
+    </property>
+    <property name="columnCount">
+     <number>6</number>
+    </property>
+    <column>
+     <property name="text">
+      <string>Name</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Year</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Type</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Keywords</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>id</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Links</string>
+     </property>
+    </column>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
@@ -105,7 +146,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>580</width>
+     <width>800</width>
      <height>22</height>
     </rect>
    </property>
@@ -117,10 +158,10 @@
      <property name="title">
       <string>Первый год</string>
      </property>
-     <addaction name="actionAllProblems_FY"/>
+     <addaction name="actionProblems_FY"/>
      <addaction name="actionStudentsBook_FY"/>
      <addaction name="separator"/>
-     <addaction name="actionThemes_FY"/>
+     <addaction name="actionLessons_FY"/>
      <addaction name="actionIndependentWorks_FY"/>
      <addaction name="actionTests_FY"/>
     </widget>
@@ -128,21 +169,18 @@
      <property name="title">
       <string>Второй год</string>
      </property>
-     <addaction name="actionAllProblems_SY"/>
+     <addaction name="actionProblems_SY"/>
      <addaction name="actionStudentsBook_SY"/>
-     <addaction name="separator"/>
-     <addaction name="actionThemes_SY"/>
-     <addaction name="actionIndependentWorks_SY"/>
-     <addaction name="actionTests_SY"/>
+     <addaction name="actionLessons_SY"/>
     </widget>
     <widget class="QMenu" name="menuAll">
      <property name="title">
       <string>Все</string>
      </property>
-     <addaction name="actionAllProblems_All"/>
+     <addaction name="actionProblems_All"/>
      <addaction name="actionStudentsBook_All"/>
      <addaction name="separator"/>
-     <addaction name="actionThemes_All"/>
+     <addaction name="actionLessons_All"/>
      <addaction name="actionIndependentWorks_All"/>
      <addaction name="actionTests_All"/>
     </widget>
@@ -208,14 +246,14 @@
     <string>Контрольные</string>
    </property>
   </action>
-  <action name="actionThemes_FY">
+  <action name="actionLessons_FY">
    <property name="text">
-    <string>Темы</string>
+    <string>Уроки</string>
    </property>
   </action>
-  <action name="actionAllProblems_FY">
+  <action name="actionProblems_FY">
    <property name="text">
-    <string>Все задачи</string>
+    <string>Задачи</string>
    </property>
   </action>
   <action name="actionStudentsBook_FY">
@@ -223,9 +261,9 @@
     <string>Учебник</string>
    </property>
   </action>
-  <action name="actionThemes_SY">
+  <action name="actionLessons_SY">
    <property name="text">
-    <string>Темы</string>
+    <string>Уроки</string>
    </property>
   </action>
   <action name="actionIndependentWorks_SY">
@@ -238,9 +276,9 @@
     <string>Контрольные</string>
    </property>
   </action>
-  <action name="actionAllProblems_SY">
+  <action name="actionProblems_SY">
    <property name="text">
-    <string>Все задачи</string>
+    <string>Задачи</string>
    </property>
   </action>
   <action name="actionStudentsBook_SY">
@@ -248,9 +286,9 @@
     <string>Учебник</string>
    </property>
   </action>
-  <action name="actionThemes_All">
+  <action name="actionLessons_All">
    <property name="text">
-    <string>Темы</string>
+    <string>Уроки</string>
    </property>
   </action>
   <action name="actionIndependentWorks_All">
@@ -268,9 +306,9 @@
     <string>Учебник</string>
    </property>
   </action>
-  <action name="actionAllProblems_All">
+  <action name="actionProblems_All">
    <property name="text">
-    <string>Все задачи</string>
+    <string>Задачи</string>
    </property>
   </action>
   <action name="actionRussian">

@@ -1,13 +1,17 @@
+import sqlite3
 import sys
+from functools import partial
 
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QApplication, QDesktopWidget
+from PyQt5.QtWidgets import QMainWindow, QApplication, QDesktopWidget, QTableWidgetItem
 
 from CodeTest import CodeTest
 from Tutorial import Tutorial
 from DBUpdater import DBUpdater
 from ResetDialog import ResetDialog
 
+
+# TODO: move methods to standalone files
 
 class main(QMainWindow):
     def __init__(self):
@@ -16,6 +20,8 @@ class main(QMainWindow):
             data = f.readlines()
         self.SHOW_TUTORIAL, self.DB_NAME = [d.split(' = ')[1].split('\n')[0] for d in data]
         self.SHOW_TUTORIAL = int(self.SHOW_TUTORIAL)
+        self.SECTION = 'ALL'
+        self.TYPE = 'PROBLEM'
         self.initUI()
 
     def initUI(self):
@@ -27,23 +33,22 @@ class main(QMainWindow):
 
         self.btnSearch.clicked.connect(self.search)
 
-        self.actionAllProblems_All.triggered.connect(self.changeSection)
-        self.actionStudentsBook_All.triggered.connect(self.changeSection)
-        self.actionThemes_All.triggered.connect(self.changeSection)
-        self.actionIndependentWorks_All.triggered.connect(self.changeSection)
-        self.actionTests_All.triggered.connect(self.changeSection)
+        self.actionProblems_All.triggered.connect(partial(self.changeSection, 'ALL', 'PROBLEM'))
+        self.actionStudentsBook_All.triggered.connect(partial(self.changeSection, 'ALL', 'BOOK'))
+        self.actionLessons_All.triggered.connect(partial(self.changeSection, 'ALL', 'LESSON'))
+        self.actionIndependentWorks_All.triggered.connect(
+            partial(self.changeSection, 'ALL', 'IWORK'))
+        self.actionTests_All.triggered.connect(partial(self.changeSection, 'ALL', 'TEST'))
 
-        self.actionAllProblems_FY.triggered.connect(self.changeSection)
-        self.actionStudentsBook_FY.triggered.connect(self.changeSection)
-        self.actionThemes_FY.triggered.connect(self.changeSection)
-        self.actionIndependentWorks_FY.triggered.connect(self.changeSection)
-        self.actionTests_FY.triggered.connect(self.changeSection)
+        self.actionProblems_FY.triggered.connect(partial(self.changeSection, 'FY', 'PROBLEM'))
+        self.actionStudentsBook_FY.triggered.connect(partial(self.changeSection, 'FY', 'BOOK'))
+        self.actionLessons_FY.triggered.connect(partial(self.changeSection, 'FY', 'LESSON'))
+        self.actionIndependentWorks_FY.triggered.connect(partial(self.changeSection, 'FY', 'IWORK'))
+        self.actionTests_FY.triggered.connect(partial(self.changeSection, 'FY', 'TEST'))
 
-        self.actionAllProblems_SY.triggered.connect(self.changeSection)
-        self.actionStudentsBook_SY.triggered.connect(self.changeSection)
-        self.actionThemes_SY.triggered.connect(self.changeSection)
-        self.actionIndependentWorks_SY.triggered.connect(self.changeSection)
-        self.actionTests_SY.triggered.connect(self.changeSection)
+        self.actionProblems_SY.triggered.connect(partial(self.changeSection, 'SY', 'PROBLEM'))
+        self.actionStudentsBook_SY.triggered.connect(partial(self.changeSection, 'SY', 'BOOK'))
+        self.actionLessons_SY.triggered.connect(partial(self.changeSection, 'SY', 'LESSON'))
 
         self.menuCodeTest.triggered.connect(self.openCodeTest)
 
@@ -63,18 +68,41 @@ class main(QMainWindow):
         Поиск по выбранным секциям (Все, Первый год, Второй год)
         :return:
         '''
+        # TODO: improve search algorithm
+        # TODO: maybe remove id from database display
+        try:
+            con = sqlite3.connect(self.DB_NAME + '.sqlite')
+            cur = con.cursor()
+            search = self.plainTextSearchField.toPlainText()
+            query = f"""SELECT * FROM {self.DB_NAME} 
+                    WHERE (Name LIKE '%{search}%' OR Keywords LIKE '%{search}%')"""
+            if self.SECTION == 'ALL':
+                query += f"""AND Type = '{self.TYPE.lower()}';"""
+            elif self.SECTION == 'FY':
+                query += f"""AND Type = '{self.TYPE.lower()}' AND Year = 1;"""
+            elif self.SECTION == 'SY':
+                query += f"""AND Type = '{self.TYPE.lower()}' AND Year = 2;"""
+            data = cur.execute(query).fetchall()
+            self.tableWidgetResults.setRowCount(0)
+            for i, row in enumerate(data):
+                self.tableWidgetResults.setRowCount(self.tableWidgetResults.rowCount() + 1)
+                for j, elem in enumerate(row):
+                    self.tableWidgetResults.setItem(i, j, QTableWidgetItem(str(elem)))
+            self.tableWidgetResults.resizeColumnsToContents()
+        except sqlite3.Error as error:
+            self.plainTextSearchField.appendPlainText(str(error))
+        finally:
+            if con:
+                con.close()
 
-        # TODO: add links
-
-        pass
-
-    def changeSection(self):
+    def changeSection(self, section, type):
         '''
         Search section change (All problems, Students book, Themes, Independent works, Tests)
         Изменение секции поиска (Все задачи, Учебник, Темы, Самостоятельные, Контрольные)
         :return:
         '''
-        pass
+        self.SECTION = section
+        self.TYPE = type
 
     def openCodeTest(self):
         '''
@@ -107,7 +135,6 @@ class main(QMainWindow):
         :return:
         '''
         self.dbUpdater = DBUpdater(self, self.DB_NAME)
-
 
     def resetAll(self):
         '''
