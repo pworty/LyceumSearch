@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QDesktopWidget
 
 from CodeTest import CodeTest
 from Tutorial import Tutorial
+from DBUpdater import DBUpdater
 from ResetDialog import ResetDialog
 
 
@@ -13,7 +14,8 @@ class main(QMainWindow):
         super().__init__()
         with open("settings.txt", "r") as f:
             data = f.readlines()
-        self.SHOW_TUTORIAL, = [int(d.split(' = ')[1].split('\n')[0]) for d in data]
+        self.SHOW_TUTORIAL, self.DB_NAME = [d.split(' = ')[1].split('\n')[0] for d in data]
+        self.SHOW_TUTORIAL = int(self.SHOW_TUTORIAL)
         self.initUI()
 
     def initUI(self):
@@ -47,6 +49,8 @@ class main(QMainWindow):
 
         self.actionOpenTutorial.triggered.connect(self.openTutorial)
 
+        self.actionOpenDBUpdater.triggered.connect(self.openDBUpdater)
+
         self.actionResetAll.triggered.connect(self.resetAll)
 
         self.actionRussian.triggered.connect(self.changeLanguage)
@@ -60,8 +64,7 @@ class main(QMainWindow):
         :return:
         '''
 
-        # To-do:
-        # - Add links
+        # TODO: add links
 
         pass
 
@@ -89,13 +92,22 @@ class main(QMainWindow):
         :return:
         '''
 
-        # To-do:
-        # - Add actual tutorial
+        # TODO: Add actual tutorial
 
         if e == 'launch':
             self.tutorial = Tutorial(self, self.SHOW_TUTORIAL)
         else:
             self.tutorial = Tutorial(self, 1)
+
+    def openDBUpdater(self):
+        '''
+        Opens DBUpdater dialog window
+
+        Открывает диалоговое окно для обновления базы данных
+        :return:
+        '''
+        self.dbUpdater = DBUpdater(self, self.DB_NAME)
+
 
     def resetAll(self):
         '''
@@ -107,7 +119,7 @@ class main(QMainWindow):
         with open("defaults.txt", "r") as f:
             data = f.readlines()
         with open('settings.txt', "w") as f:
-            f.write('\n'.join(data))
+            f.write(''.join(data))
         self.resetDialog = ResetDialog(self)
 
     def changeLanguage(self):

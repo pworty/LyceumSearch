@@ -1,1 +1,2 @@
 SHOW_TUTORIAL = 1
+DB_NAME = lyceumTable

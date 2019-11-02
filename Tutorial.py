@@ -21,5 +21,9 @@ class Tutorial(QWidget):
             self.SHOW_TUTORIAL = 0
         else:
             self.SHOW_TUTORIAL = 1
+        with open("defaults.txt", "r") as f:
+            data = f.readlines()
         with open('settings.txt', "w") as f:
-            f.write(f'SHOW_TUTORIAL = {self.SHOW_TUTORIAL}')
+            f.write(f'SHOW_TUTORIAL = {self.SHOW_TUTORIAL}\n')
+            f.write(''.join(data[1:]))
+

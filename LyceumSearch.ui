@@ -99,6 +99,7 @@
     </property>
    </widget>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -173,15 +174,15 @@
     <property name="title">
      <string>Настройки</string>
     </property>
+    <addaction name="actionOpenDBUpdater"/>
     <addaction name="actionResetAll"/>
    </widget>
    <addaction name="menuSearch"/>
    <addaction name="menuCodeTest"/>
-   <addaction name="menuHelp"/>
    <addaction name="menuSettings"/>
+   <addaction name="menuHelp"/>
    <addaction name="menuLanguage"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionOpen">
    <property name="text">
     <string>Open</string>
@@ -295,6 +296,11 @@
   <action name="actionResetAll">
    <property name="text">
     <string>Сбросить все</string>
+   </property>
+  </action>
+  <action name="actionOpenDBUpdater">
+   <property name="text">
+    <string>Добавить задачу</string>
    </property>
   </action>
  </widget>

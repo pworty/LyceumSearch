@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FormDBUpdater</class>
+ <widget class="QWidget" name="FormDBUpdater">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Update Database</string>
+  </property>
+  <widget class="QPlainTextEdit" name="plainTextEditName">
+   <property name="geometry">
+    <rect>
+     <x>125</x>
+     <y>25</y>
+     <width>650</width>
+     <height>36</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelName">
+   <property name="geometry">
+    <rect>
+     <x>25</x>
+     <y>25</y>
+     <width>100</width>
+     <height>36</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Name</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="plainTextEditYear">
+   <property name="geometry">
+    <rect>
+     <x>125</x>
+     <y>75</y>
+     <width>650</width>
+     <height>36</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelYear">
+   <property name="geometry">
+    <rect>
+     <x>25</x>
+     <y>75</y>
+     <width>100</width>
+     <height>36</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Year</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="plainTextEditType">
+   <property name="geometry">
+    <rect>
+     <x>125</x>
+     <y>125</y>
+     <width>650</width>
+     <height>36</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelType">
+   <property name="geometry">
+    <rect>
+     <x>25</x>
+     <y>125</y>
+     <width>100</width>
+     <height>36</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Type</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="plainTextEditKeywords">
+   <property name="geometry">
+    <rect>
+     <x>125</x>
+     <y>175</y>
+     <width>650</width>
+     <height>36</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelKeywords">
+   <property name="geometry">
+    <rect>
+     <x>25</x>
+     <y>175</y>
+     <width>100</width>
+     <height>36</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Keywords</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="plainTextEditLink">
+   <property name="geometry">
+    <rect>
+     <x>125</x>
+     <y>225</y>
+     <width>650</width>
+     <height>72</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelLink">
+   <property name="geometry">
+    <rect>
+     <x>25</x>
+     <y>225</y>
+     <width>100</width>
+     <height>36</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Link</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonAddRecord">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>325</y>
+     <width>275</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>ADD RECORD</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelRecordAdded">
+   <property name="geometry">
+    <rect>
+     <x>125</x>
+     <y>325</y>
+     <width>300</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,1 +1,2 @@
-SHOW_TUTORIAL = 1
+SHOW_TUTORIAL = 0
+DB_NAME = lyceumTable
