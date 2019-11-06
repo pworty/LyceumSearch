@@ -12,13 +12,10 @@ from ResetDialog import ResetDialog
 
 
 # TODO: move methods to standalone files
-# TODO: add more blank lines for readability
-# TODO: look trough if comments are needed
 
 class main(QMainWindow):
     def __init__(self):
         super().__init__()
-
         self.initUI()
 
     def initUI(self):
@@ -26,27 +23,41 @@ class main(QMainWindow):
         self.center()
         self.show()
 
+        # Variables init
+        # Инициализация переменных
         with open("settings.txt", "r") as f:
             data = f.readlines()
         self.SHOW_TUTORIAL, self.DB_NAME, self.LANGUAGE = [d.split(' = ')[1].split('\n')[0] for d in
                                                            data]
         self.SHOW_TUTORIAL = int(self.SHOW_TUTORIAL)
+
+        # Language dictionary
+        # Dictionary of used words to translate later
+        # Словарь используемых слов для дальнейшего перевода
         self.langDict = {'Search': '', 'Keywords': '', 'All': '', 'Search problems': '',
                          'First year': '', 'Second year': '', 'Problems': '', 'Book': '',
                          'Lessons': '', 'Independent works': '', 'Tests': '', 'Other actions': '',
                          'Full DB': '', 'Change DB': '', 'Reset all': '', 'Help': '',
                          'Open tutorial': '', 'Name': '', 'Year': '', 'Type': '', 'Link': ''}
+        # Russian translation (default)
+        # Русский перевод (по умолчанию)
         self.translation_RU = ['Поиск', 'Ключевые слова', 'Все', 'Искать задачи', 'Первый год',
                                'Второй год', 'Задачи', 'Учебник', 'Уроки', 'Самостоятельные',
                                'Контрольные', 'Другие действия', 'Полная БД', 'Изменить БД',
                                'Сбросить все', 'Помощь', 'Открыть обучение', 'Название', 'Год',
                                'Тип', 'Ссылка']
+
         self.SECTION = 'ALL'
         self.TYPE = 'ALL'
 
+        # UI language load
+        # Загрузка языка интерфейса
         self.changeLanguage(self.LANGUAGE)
+
         self.openTutorial('launch')
 
+        # Buttons connection
+        # Подключение кнопок
         self.btnSearch.clicked.connect(self.search)
 
         self.actionProblems_All.triggered.connect(partial(self.changeSection, 'ALL', 'PROBLEM'))
@@ -91,11 +102,17 @@ class main(QMainWindow):
             con = sqlite3.connect(self.DB_NAME + '.sqlite')
             cur = con.cursor()
 
+            # Getting the user query
+            # Получение пользовательского запроса
             search = self.plainTextSearchField.toPlainText().strip()
 
+            # User query formatting (only visual)
+            # Форматирование запроса (только визуальное)
             self.plainTextSearchField.clear()
             self.plainTextSearchField.appendPlainText(search)
 
+            # DB print by query
+            # Вывод БД по запросу
             query = f"""SELECT Name, Type, Link FROM {self.DB_NAME}
                     WHERE ((Name LIKE '%{search}%' OR Name LIKE '%{search.capitalize()}%')
                     OR (Keywords LIKE '%{search}%' OR Keywords LIKE '%{search.capitalize()}%'))"""
@@ -112,7 +129,13 @@ class main(QMainWindow):
                 query += """ AND Year = 2;"""
             data = cur.execute(query).fetchall()
             self.tableWidgetResults.setRowCount(0)
+
+            # Only 3 columns are displayed to avoid confusing the user (total of 6)
+            # Отображаются только 3 колонки, чтобы пользователь не запутался (всего 6)
             self.tableWidgetResults.setColumnCount(3)
+
+            # langDict is used to make the column names' translated
+            # langDict используется для перевода названий колнок
             self.tableWidgetResults.setHorizontalHeaderLabels(
                 [self.langDict['Name'], self.langDict['Type'], self.langDict['Link']])
             for i, row in enumerate(data):
@@ -121,6 +144,8 @@ class main(QMainWindow):
                     self.tableWidgetResults.setItem(i, j, QTableWidgetItem(str(elem)))
             self.tableWidgetResults.resizeColumnsToContents()
         except sqlite3.Error as error:
+            # Print error message into label for user to see it
+            # Вывод сообщения об ошибки в надпись для того, чтобы пользователь мог видеть его
             self.plainTextSearchField.appendPlainText(str(error))
         finally:
             if con:
@@ -167,8 +192,12 @@ class main(QMainWindow):
         # TODO: Add actual tutorial
 
         if e == 'launch':
+            # Show on launch if checked
+            # Показать при запуске если стоит галочка
             self.tutorial = Tutorial(self, self.SHOW_TUTORIAL)
         else:
+            # Show anyway by press of the 'Open tutorial' button
+            # Показать в любом случае по нажатию кнопки 'Открыть обучение'
             self.tutorial = Tutorial(self, 1)
 
     def openFullDB(self):
@@ -180,6 +209,7 @@ class main(QMainWindow):
         '''
         con = sqlite3.connect(self.DB_NAME + '.sqlite')
         cur = con.cursor()
+
         data = cur.execute(f"""SELECT * from {self.DB_NAME}""").fetchall()
         self.tableWidgetResults.setRowCount(0)
         self.tableWidgetResults.setColumnCount(6)
@@ -223,12 +253,16 @@ class main(QMainWindow):
         Изменение языка интерфейса
         :return:
         '''
+        # Fills the translations in other languages or keys into values if English chosen
+        # Заполняет переводы на других языках или ключи в значения если выбран Английский
         for ind, key in enumerate(self.langDict.keys()):
             if language == 'RU':
                 self.langDict[key] = self.translation_RU[ind]
             elif language == 'EN':
                 self.langDict[key] = key
 
+        # Program elements renaming to chosen language
+        # Переименование элементов програм на выбранный
         self.btnSearch.setText(self.langDict['Search'])
         if language == 'RU':
             self.lbKeywords.setText('Ключевые\nслова')
@@ -278,6 +312,12 @@ class main(QMainWindow):
             f.write(f'LANGUAGE = {self.LANGUAGE}\n')
 
     def center(self):
+        """
+        Centers the window on the screen
+
+        Центрирует окно на экране
+        :return:
+        """
         # geometry of the main window
         # размеры главного окна
         qr = self.frameGeometry()
@@ -290,6 +330,17 @@ class main(QMainWindow):
         # top left of rectangle becomes top left of window centering it
         # верхний левый угол прямоугольника совмещается с главным окном
         self.move(qr.topLeft())
+
+    def closeEvent(self, event):
+        """
+        Closes all windows if main is closed
+
+        Закрывает все окна если главное закрыто
+        :param event:
+        :return:
+        """
+        app.closeAllWindows()
+        event.accept()
 
 
 if __name__ == '__main__':
