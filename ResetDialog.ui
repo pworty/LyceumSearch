@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Settings reset</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="labelMessage">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -30,8 +30,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Your settings
- have been reset!</string>
+    <string/>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

@@ -21,9 +21,23 @@ class Tutorial(QWidget):
             self.SHOW_TUTORIAL = 0
         else:
             self.SHOW_TUTORIAL = 1
-        with open("defaults.txt", "r") as f:
+        with open("settings.txt", "r") as f:
             data = f.readlines()
         with open('settings.txt', "w") as f:
             f.write(f'SHOW_TUTORIAL = {self.SHOW_TUTORIAL}\n')
             f.write(''.join(data[1:]))
+
+    def openTutorial(self, e):
+        '''
+        Display tutorial (or not if disabled)
+
+        Показать обучение (или нет если отключено)
+        :return:
+        '''
+        # TODO: Add actual tutorial
+
+        if e == 'launch':
+            self.tutorial = Tutorial(self, self.SHOW_TUTORIAL)
+        else:
+            self.tutorial = Tutorial(self, 1)
 

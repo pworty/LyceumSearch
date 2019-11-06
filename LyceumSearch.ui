@@ -32,11 +32,11 @@
      <string>Поиск</string>
     </property>
    </widget>
-   <widget class="QLabel" name="lblProblemName">
+   <widget class="QLabel" name="lbKeywords">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>80</y>
+      <y>78</y>
       <width>110</width>
       <height>80</height>
      </rect>
@@ -75,9 +75,9 @@
    <widget class="QLabel" name="lblSection">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>50</x>
       <y>7</y>
-      <width>400</width>
+      <width>700</width>
       <height>80</height>
      </rect>
     </property>
@@ -90,7 +90,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Все задачи</string>
+     <string>Все</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -106,36 +106,21 @@
      </rect>
     </property>
     <property name="columnCount">
-     <number>6</number>
+     <number>3</number>
     </property>
     <column>
      <property name="text">
-      <string>Name</string>
+      <string>Название</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>Year</string>
+      <string>Тип</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>Type</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Keywords</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>id</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Links</string>
+      <string>Ссылка</string>
      </property>
     </column>
    </widget>
@@ -150,7 +135,7 @@
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuSearch">
+   <widget class="QMenu" name="menuSearchProblems">
     <property name="title">
      <string>Искать задачи</string>
     </property>
@@ -164,6 +149,8 @@
      <addaction name="actionLessons_FY"/>
      <addaction name="actionIndependentWorks_FY"/>
      <addaction name="actionTests_FY"/>
+     <addaction name="separator"/>
+     <addaction name="actionAll_FY"/>
     </widget>
     <widget class="QMenu" name="menuSecondYear">
      <property name="title">
@@ -172,6 +159,8 @@
      <addaction name="actionProblems_SY"/>
      <addaction name="actionStudentsBook_SY"/>
      <addaction name="actionLessons_SY"/>
+     <addaction name="separator"/>
+     <addaction name="actionAll_SY"/>
     </widget>
     <widget class="QMenu" name="menuAll">
      <property name="title">
@@ -183,16 +172,13 @@
      <addaction name="actionLessons_All"/>
      <addaction name="actionIndependentWorks_All"/>
      <addaction name="actionTests_All"/>
+     <addaction name="separator"/>
+     <addaction name="actionAll_All"/>
     </widget>
     <addaction name="menuAll"/>
     <addaction name="separator"/>
     <addaction name="menuFirstYear"/>
     <addaction name="menuSecondYear"/>
-   </widget>
-   <widget class="QMenu" name="menuCodeTest">
-    <property name="title">
-     <string>Тест кода</string>
-    </property>
    </widget>
    <widget class="QMenu" name="menuLanguage">
     <property name="title">
@@ -200,7 +186,6 @@
     </property>
     <addaction name="actionRussian"/>
     <addaction name="actionEnglish"/>
-    <addaction name="actionMeme"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -208,16 +193,16 @@
     </property>
     <addaction name="actionOpenTutorial"/>
    </widget>
-   <widget class="QMenu" name="menuSettings">
+   <widget class="QMenu" name="menuOtherActions">
     <property name="title">
-     <string>Настройки</string>
+     <string>Другие действия</string>
     </property>
+    <addaction name="actionOpenFullDB"/>
     <addaction name="actionOpenDBUpdater"/>
     <addaction name="actionResetAll"/>
    </widget>
-   <addaction name="menuSearch"/>
-   <addaction name="menuCodeTest"/>
-   <addaction name="menuSettings"/>
+   <addaction name="menuSearchProblems"/>
+   <addaction name="menuOtherActions"/>
    <addaction name="menuHelp"/>
    <addaction name="menuLanguage"/>
   </widget>
@@ -338,7 +323,27 @@
   </action>
   <action name="actionOpenDBUpdater">
    <property name="text">
-    <string>Добавить задачу</string>
+    <string>Изменить БД</string>
+   </property>
+  </action>
+  <action name="actionAll_All">
+   <property name="text">
+    <string>Все</string>
+   </property>
+  </action>
+  <action name="actionAll_FY">
+   <property name="text">
+    <string>Все</string>
+   </property>
+  </action>
+  <action name="actionAll_SY">
+   <property name="text">
+    <string>Все</string>
+   </property>
+  </action>
+  <action name="actionOpenFullDB">
+   <property name="text">
+    <string>Полная БД</string>
    </property>
   </action>
  </widget>

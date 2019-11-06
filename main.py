@@ -1,27 +1,24 @@
 import sqlite3
 import sys
+
 from functools import partial
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDesktopWidget, QTableWidgetItem
 
-from CodeTest import CodeTest
 from Tutorial import Tutorial
 from DBUpdater import DBUpdater
 from ResetDialog import ResetDialog
 
 
 # TODO: move methods to standalone files
+# TODO: add more blank lines for readability
+# TODO: look trough if comments are needed
 
 class main(QMainWindow):
     def __init__(self):
         super().__init__()
-        with open("settings.txt", "r") as f:
-            data = f.readlines()
-        self.SHOW_TUTORIAL, self.DB_NAME = [d.split(' = ')[1].split('\n')[0] for d in data]
-        self.SHOW_TUTORIAL = int(self.SHOW_TUTORIAL)
-        self.SECTION = 'ALL'
-        self.TYPE = 'PROBLEM'
+
         self.initUI()
 
     def initUI(self):
@@ -29,6 +26,25 @@ class main(QMainWindow):
         self.center()
         self.show()
 
+        with open("settings.txt", "r") as f:
+            data = f.readlines()
+        self.SHOW_TUTORIAL, self.DB_NAME, self.LANGUAGE = [d.split(' = ')[1].split('\n')[0] for d in
+                                                           data]
+        self.SHOW_TUTORIAL = int(self.SHOW_TUTORIAL)
+        self.langDict = {'Search': '', 'Keywords': '', 'All': '', 'Search problems': '',
+                         'First year': '', 'Second year': '', 'Problems': '', 'Book': '',
+                         'Lessons': '', 'Independent works': '', 'Tests': '', 'Other actions': '',
+                         'Full DB': '', 'Change DB': '', 'Reset all': '', 'Help': '',
+                         'Open tutorial': '', 'Name': '', 'Year': '', 'Type': '', 'Link': ''}
+        self.translation_RU = ['Поиск', 'Ключевые слова', 'Все', 'Искать задачи', 'Первый год',
+                               'Второй год', 'Задачи', 'Учебник', 'Уроки', 'Самостоятельные',
+                               'Контрольные', 'Другие действия', 'Полная БД', 'Изменить БД',
+                               'Сбросить все', 'Помощь', 'Открыть обучение', 'Название', 'Год',
+                               'Тип', 'Ссылка']
+        self.SECTION = 'ALL'
+        self.TYPE = 'ALL'
+
+        self.changeLanguage(self.LANGUAGE)
         self.openTutorial('launch')
 
         self.btnSearch.clicked.connect(self.search)
@@ -39,51 +55,66 @@ class main(QMainWindow):
         self.actionIndependentWorks_All.triggered.connect(
             partial(self.changeSection, 'ALL', 'IWORK'))
         self.actionTests_All.triggered.connect(partial(self.changeSection, 'ALL', 'TEST'))
+        self.actionAll_All.triggered.connect(partial(self.changeSection, 'ALL', 'ALL'))
 
         self.actionProblems_FY.triggered.connect(partial(self.changeSection, 'FY', 'PROBLEM'))
         self.actionStudentsBook_FY.triggered.connect(partial(self.changeSection, 'FY', 'BOOK'))
         self.actionLessons_FY.triggered.connect(partial(self.changeSection, 'FY', 'LESSON'))
         self.actionIndependentWorks_FY.triggered.connect(partial(self.changeSection, 'FY', 'IWORK'))
         self.actionTests_FY.triggered.connect(partial(self.changeSection, 'FY', 'TEST'))
+        self.actionAll_FY.triggered.connect(partial(self.changeSection, 'FY', 'ALL'))
 
         self.actionProblems_SY.triggered.connect(partial(self.changeSection, 'SY', 'PROBLEM'))
         self.actionStudentsBook_SY.triggered.connect(partial(self.changeSection, 'SY', 'BOOK'))
         self.actionLessons_SY.triggered.connect(partial(self.changeSection, 'SY', 'LESSON'))
-
-        self.menuCodeTest.triggered.connect(self.openCodeTest)
+        self.actionAll_SY.triggered.connect(partial(self.changeSection, 'SY', 'ALL'))
 
         self.actionOpenTutorial.triggered.connect(self.openTutorial)
+
+        self.actionOpenFullDB.triggered.connect(self.openFullDB)
 
         self.actionOpenDBUpdater.triggered.connect(self.openDBUpdater)
 
         self.actionResetAll.triggered.connect(self.resetAll)
 
-        self.actionRussian.triggered.connect(self.changeLanguage)
-        self.actionEnglish.triggered.connect(self.changeLanguage)
-        self.actionMeme.triggered.connect(self.changeLanguage)
+        self.actionRussian.triggered.connect(partial(self.changeLanguage, 'RU'))
+        self.actionEnglish.triggered.connect(partial(self.changeLanguage, 'EN'))
 
     def search(self):
         '''
         Selected section search (All, First year, Second year)
+
         Поиск по выбранным секциям (Все, Первый год, Второй год)
         :return:
         '''
-        # TODO: improve search algorithm
-        # TODO: maybe remove id from database display
         try:
             con = sqlite3.connect(self.DB_NAME + '.sqlite')
             cur = con.cursor()
-            search = self.plainTextSearchField.toPlainText()
-            query = f"""SELECT * FROM {self.DB_NAME} 
-                    WHERE (Name LIKE '%{search}%' OR Keywords LIKE '%{search}%')"""
+
+            search = self.plainTextSearchField.toPlainText().strip()
+
+            self.plainTextSearchField.clear()
+            self.plainTextSearchField.appendPlainText(search)
+
+            query = f"""SELECT Name, Type, Link FROM {self.DB_NAME}
+                    WHERE ((Name LIKE '%{search}%' OR Name LIKE '%{search.capitalize()}%')
+                    OR (Keywords LIKE '%{search}%' OR Keywords LIKE '%{search.capitalize()}%'))"""
             if self.SECTION == 'ALL':
-                query += f"""AND Type = '{self.TYPE.lower()}';"""
+                if self.TYPE != 'ALL':
+                    query += f""" AND Type = '{self.TYPE.lower()}';"""
             elif self.SECTION == 'FY':
-                query += f"""AND Type = '{self.TYPE.lower()}' AND Year = 1;"""
+                if self.TYPE != 'ALL':
+                    query += f""" AND Type = '{self.TYPE.lower()}'"""
+                query += """AND Year = 1;"""
             elif self.SECTION == 'SY':
-                query += f"""AND Type = '{self.TYPE.lower()}' AND Year = 2;"""
+                if self.TYPE != 'ALL':
+                    query += f"""AND Type = '{self.TYPE.lower()}"""
+                query += """ AND Year = 2;"""
             data = cur.execute(query).fetchall()
             self.tableWidgetResults.setRowCount(0)
+            self.tableWidgetResults.setColumnCount(3)
+            self.tableWidgetResults.setHorizontalHeaderLabels(
+                [self.langDict['Name'], self.langDict['Type'], self.langDict['Link']])
             for i, row in enumerate(data):
                 self.tableWidgetResults.setRowCount(self.tableWidgetResults.rowCount() + 1)
                 for j, elem in enumerate(row):
@@ -98,34 +129,68 @@ class main(QMainWindow):
     def changeSection(self, section, type):
         '''
         Search section change (All problems, Students book, Themes, Independent works, Tests)
+
         Изменение секции поиска (Все задачи, Учебник, Темы, Самостоятельные, Контрольные)
         :return:
         '''
         self.SECTION = section
         self.TYPE = type
 
-    def openCodeTest(self):
-        '''
-        Code testing window opening
-        Открытие окна тестирования кода
-        :return:
-        '''
-        self.codeTest = CodeTest(self)
-        self.codeTest.show()
+        text = ''
+        if self.TYPE == 'PROBLEM':
+            text = self.langDict['Problems']
+        elif self.TYPE == 'BOOK':
+            text = self.langDict['Book']
+        elif self.TYPE == 'LESSON':
+            text = self.langDict['Lessons']
+        elif self.TYPE == 'IWORK':
+            text = self.langDict['Independent works']
+        elif self.TYPE == 'TEST':
+            text = self.langDict['Tests']
+        elif self.TYPE == 'ALL':
+            text = self.langDict['All']
+
+        if self.SECTION == 'ALL':
+            self.lblSection.setText(f'{text}')
+        elif self.SECTION == 'FY':
+            self.lblSection.setText(f'{text} ({self.langDict["First year"]})')
+        elif self.SECTION == 'SY':
+            self.lblSection.setText(f'{text} ({self.langDict["Second year"]})')
 
     def openTutorial(self, e):
         '''
         Display tutorial (or not if disabled)
+
         Показать обучение (или нет если отключено)
         :return:
         '''
-
         # TODO: Add actual tutorial
 
         if e == 'launch':
             self.tutorial = Tutorial(self, self.SHOW_TUTORIAL)
         else:
             self.tutorial = Tutorial(self, 1)
+
+    def openFullDB(self):
+        '''
+        Opens fully detailed DB
+
+        Открывает полную БД со всей информацией
+        :return:
+        '''
+        con = sqlite3.connect(self.DB_NAME + '.sqlite')
+        cur = con.cursor()
+        data = cur.execute(f"""SELECT * from {self.DB_NAME}""").fetchall()
+        self.tableWidgetResults.setRowCount(0)
+        self.tableWidgetResults.setColumnCount(6)
+        self.tableWidgetResults.setHorizontalHeaderLabels(
+            ['id', self.langDict['Name'], self.langDict['Year'], self.langDict['Type'],
+             self.langDict['Keywords'], self.langDict['Link']])
+        for i, row in enumerate(data):
+            self.tableWidgetResults.setRowCount(self.tableWidgetResults.rowCount() + 1)
+            for j, elem in enumerate(row):
+                self.tableWidgetResults.setItem(i, j, QTableWidgetItem(str(elem)))
+        self.tableWidgetResults.resizeColumnsToContents()
 
     def openDBUpdater(self):
         '''
@@ -143,19 +208,74 @@ class main(QMainWindow):
         Сбрасывает все настройки на изначальные
         :return:
         '''
+
+        self.resetDialog = ResetDialog(self, self.LANGUAGE)
         with open("defaults.txt", "r") as f:
             data = f.readlines()
         with open('settings.txt', "w") as f:
             f.write(''.join(data))
-        self.resetDialog = ResetDialog(self)
+        self.initUI()
 
-    def changeLanguage(self):
+    def changeLanguage(self, language):
         '''
         Ui language change
+
         Изменение языка интерфейса
         :return:
         '''
-        pass
+        for ind, key in enumerate(self.langDict.keys()):
+            if language == 'RU':
+                self.langDict[key] = self.translation_RU[ind]
+            elif language == 'EN':
+                self.langDict[key] = key
+
+        self.btnSearch.setText(self.langDict['Search'])
+        if language == 'RU':
+            self.lbKeywords.setText('Ключевые\nслова')
+        elif language == 'EN':
+            self.lbKeywords.setText(self.langDict['Keywords'])
+        self.lblSection.setText(self.langDict['All'])
+        self.tableWidgetResults.setHorizontalHeaderLabels(
+            [self.langDict['Name'], self.langDict['Type'], self.langDict['Link']])
+
+        self.menuSearchProblems.setTitle(self.langDict['Search problems'])
+
+        self.menuAll.setTitle(self.langDict['All'])
+        self.actionProblems_All.setText(self.langDict['Problems'])
+        self.actionStudentsBook_All.setText(self.langDict['Book'])
+        self.actionLessons_All.setText(self.langDict['Lessons'])
+        self.actionIndependentWorks_All.setText(self.langDict['Independent works'])
+        self.actionTests_All.setText(self.langDict['Tests'])
+        self.actionAll_All.setText(self.langDict['All'])
+
+        self.menuFirstYear.setTitle(self.langDict['First year'])
+        self.actionProblems_FY.setText(self.langDict['Problems'])
+        self.actionStudentsBook_FY.setText(self.langDict['Book'])
+        self.actionLessons_FY.setText(self.langDict['Lessons'])
+        self.actionIndependentWorks_FY.setText(self.langDict['Independent works'])
+        self.actionTests_FY.setText(self.langDict['Tests'])
+        self.actionAll_FY.setText(self.langDict['All'])
+
+        self.menuSecondYear.setTitle(self.langDict['Second year'])
+        self.actionProblems_SY.setText(self.langDict['Problems'])
+        self.actionStudentsBook_SY.setText(self.langDict['Book'])
+        self.actionLessons_SY.setText(self.langDict['Lessons'])
+        self.actionAll_SY.setText(self.langDict['All'])
+
+        self.menuOtherActions.setTitle(self.langDict['Other actions'])
+        self.actionOpenFullDB.setText(self.langDict['Full DB'])
+        self.actionOpenDBUpdater.setText(self.langDict['Change DB'])
+        self.actionResetAll.setText(self.langDict['Reset all'])
+
+        self.menuHelp.setTitle(self.langDict['Help'])
+        self.actionOpenTutorial.setText(self.langDict['Open tutorial'])
+
+        self.LANGUAGE = language
+        with open("settings.txt", "r") as f:
+            data = f.readlines()
+        with open('settings.txt', "w") as f:
+            f.write(''.join(data[:-1]))
+            f.write(f'LANGUAGE = {self.LANGUAGE}\n')
 
     def center(self):
         # geometry of the main window
