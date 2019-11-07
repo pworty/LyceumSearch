@@ -20,11 +20,7 @@ pip install -r requirements.txt
 
 ![Интерфейс](tutorial_images/tutorial_0.jpg)
 
-Explain what these tests test and why
-
-```
-Give an example
-```
+Надпись **'Все'** означает, что при нажатии кнопки, будет идти поиск по всем задачам
 
 ### And coding style tests
 
@@ -34,13 +30,9 @@ Explain what these tests test and why
 Give an example
 ```
 
-## Contributing
+## Авторы
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Authors
-
-* **pworty** - *Initial work* - [pworty](https://github.com/pworty)
+* **pworty** - *Вся работа* - [pworty](https://github.com/pworty)
 
 ## TODO:
 
