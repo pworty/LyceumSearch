@@ -14,7 +14,8 @@ pip install -r requirements.txt
 ## Работа с программой
 
 ### Интерфейс
-[UI](UI.jpg)
+
+![](UI.jpg)
 
 Explain what these tests test and why
 
