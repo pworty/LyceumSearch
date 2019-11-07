@@ -4,7 +4,7 @@ import sys
 from functools import partial
 
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QApplication, QDesktopWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QMainWindow, QApplication, QTableWidgetItem
 
 from Tutorial import Tutorial
 from DBUpdater import DBUpdater
@@ -13,7 +13,9 @@ from ResetDialog import ResetDialog
 
 # TODO: move methods to standalone files
 
-class main(QMainWindow):
+class Main(QMainWindow):
+    from Center import center
+
     def __init__(self):
         super().__init__()
         self.initUI()
@@ -311,25 +313,6 @@ class main(QMainWindow):
             f.write(''.join(data[:-1]))
             f.write(f'LANGUAGE = {self.LANGUAGE}\n')
 
-    def center(self):
-        """
-        Centers the window on the screen
-
-        Центрирует окно на экране
-        :return:
-        """
-        # geometry of the main window
-        # размеры главного окна
-        qr = self.frameGeometry()
-        # center point of screen
-        # центр экрана
-        cp = QDesktopWidget().availableGeometry().center()
-        # move rectangle's center point to screen's center point
-        # перемещение прямоугольника в центр экрана
-        qr.moveCenter(cp)
-        # top left of rectangle becomes top left of window centering it
-        # верхний левый угол прямоугольника совмещается с главным окном
-        self.move(qr.topLeft())
 
     def closeEvent(self, event):
         """
@@ -345,5 +328,5 @@ class main(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    main = main()
+    Main = Main()
     sys.exit(app.exec())

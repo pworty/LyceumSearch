@@ -308,8 +308,8 @@ fabric.properties
 .idea/modules.xml
 .idea/vcs.xml
 LyceumSearch.ui
-main.py
-!/main.py
+Main.py
+!/Main.py
 !/LyceumSearch.ui
 !/Tutorial.ui
 !/Tutorial.py
