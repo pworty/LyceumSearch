@@ -39,17 +39,17 @@ pip install -r requirements.txt
 ![Изменение БД](tutorial_images/tutorial_3.jpg)
 
 **_Вкратце о неочевидных полях:_**
-1. Year
+1. **Year**
   - 1 
   - 2
-2. Type
+2. **Type**
   - problem (Задача)
   - book (Учебник)
   - lesson (Урок)
   - iwork (Самостоятельная)
   - test (Контрольная)
 3. Keywords (Ключевые слова для поиска, лучше писать то, что бы вы вводили в поиск, ища эту страницу)
-4. Link (Ссылка на страницу. **Самое важное удалять /solutions0000000 из ссылок на задачи, на которые вы уже загружали решения, эта ссылка индивидуальна только для вас, у других все сломается**)
+4. Link (Ссылка на страницу. **Самое важное удалять /solutions0000000 из ссылок на задачи, на которые вы уже загружали решения, эта ссылка только для вас, у других все сломается**)
 
 - **ADD RECORD**
 Добавляет новую запись
@@ -67,7 +67,8 @@ pip install -r requirements.txt
 ## Contributing
 
 ```
-На данный момент буду благодарен, если вы отправите базу данных с большим количеством задач, сейчас их около 1/50 от всех, хватает только для демонстрации
+На данный момент буду благодарен, если вы отправите базу данных с бóльшим количеством задач.
+Сейчас их около 1/50 от всех, хватает только для демонстрации.
 ```
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -81,9 +82,9 @@ Contributions are what make the open source community such an amazing place to b
 ## Авторы
 
 * **pworty** - *Вся работа* - [pworty](https://github.com/pworty)
+* Здесь будут ребята, которые помогли мне дополнить БД
 
 ## TODO:
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Добавить обучение
+* Добавить масштабирование окон
+* Пофиксить то, что поиск на Enter не работает, когда вводишь поисковой запрос
