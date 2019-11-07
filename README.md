@@ -96,7 +96,7 @@ pip install -r requirements.txt
 
 ```
 На данный момент буду благодарен, если вы отправите базу данных с бóльшим количеством задач.
-Сейчас их около 1/50 от всех, хватает только для демонстрации.
+Сейчас их 50, хватает только для демонстрации.
 ```
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
