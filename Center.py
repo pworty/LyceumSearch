@@ -2,12 +2,12 @@ from PyQt5.QtWidgets import QDesktopWidget
 
 
 def center(self):
-    """
+    '''
     Centers the window on the screen
 
     Центрирует окно на экране
     :return:
-    """
+    '''
     # geometry of the main window
     # размеры главного окна
     qr = self.frameGeometry()

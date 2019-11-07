@@ -37,7 +37,11 @@ class Tutorial(QWidget):
         # TODO: Add actual tutorial
 
         if e == 'launch':
+            # Show on launch if checked
+            # Показать при запуске если стоит галочка
             self.tutorial = Tutorial(self, self.SHOW_TUTORIAL)
         else:
+            # Show anyway by press of the 'Open tutorial' button
+            # Показать в любом случае по нажатию кнопки 'Открыть обучение'
             self.tutorial = Tutorial(self, 1)
 
