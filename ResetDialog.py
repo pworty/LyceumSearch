@@ -15,3 +15,19 @@ class ResetDialog(QWidget):
         elif self.LANGUAGE == 'EN':
             self.labelMessage.setText('Your settings\nhave been reset!')
         self.show()
+
+
+def resetAll(self):
+    '''
+    Resets all settings to default
+
+    Сбрасывает все настройки на изначальные
+    :return:
+    '''
+
+    self.resetDialog = ResetDialog(self, self.LANGUAGE)
+    with open("defaults.txt", "r") as f:
+        data = f.readlines()
+    with open('settings.txt', "w") as f:
+        f.write(''.join(data))
+    self.initUI()

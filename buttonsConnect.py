@@ -1,9 +1,16 @@
 from functools import partial
 
-from Tutorial import Tutorial
-
 
 def buttonsConnect(self):
+    '''
+    Connects buttons to methods
+
+    Подключает кнопки к методам
+    :param self:
+    :return:
+    '''
+    # TODO: add button scaling dependant on window size
+
     self.btnSearch.clicked.connect(self.search)
 
     self.actionProblems_All.triggered.connect(partial(self.changeSection, 'ALL', 'PROBLEM'))
@@ -26,7 +33,7 @@ def buttonsConnect(self):
     self.actionLessons_SY.triggered.connect(partial(self.changeSection, 'SY', 'LESSON'))
     self.actionAll_SY.triggered.connect(partial(self.changeSection, 'SY', 'ALL'))
 
-    self.actionOpenTutorial.triggered.connect(Tutorial.openTutorial)
+    self.actionOpenTutorial.triggered.connect(self.openTutorial)
 
     self.actionOpenFullDB.triggered.connect(self.openFullDB)
 

@@ -196,9 +196,9 @@
   <widget class="QPushButton" name="pushButtonAddRecord">
    <property name="geometry">
     <rect>
-     <x>500</x>
+     <x>575</x>
      <y>426</y>
-     <width>275</width>
+     <width>200</width>
      <height>50</height>
     </rect>
    </property>
@@ -237,9 +237,9 @@
   <widget class="QPushButton" name="pushButtonClearFields">
    <property name="geometry">
     <rect>
-     <x>500</x>
+     <x>575</x>
      <y>361</y>
-     <width>275</width>
+     <width>200</width>
      <height>50</height>
     </rect>
    </property>
@@ -295,7 +295,7 @@
     <rect>
      <x>125</x>
      <y>426</y>
-     <width>275</width>
+     <width>200</width>
      <height>50</height>
     </rect>
    </property>
@@ -308,6 +308,26 @@
    </property>
    <property name="text">
     <string>UPDATE VALUES</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonDeleteRecord">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>426</y>
+     <width>200</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>DELETE RECORD</string>
    </property>
   </widget>
  </widget>

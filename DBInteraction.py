@@ -33,6 +33,37 @@ class DBInteraction:
             if con:
                 con.close()
 
+    def changeSection(self, section, type):
+        '''
+        Search section change (All problems, Students book, Themes, Independent works, Tests)
+
+        Изменение секции поиска (Все задачи, Учебник, Темы, Самостоятельные, Контрольные)
+        :return:
+        '''
+        self.SECTION = section
+        self.TYPE = type
+
+        text = ''
+        if self.TYPE == 'PROBLEM':
+            text = self.langDict['Problems']
+        elif self.TYPE == 'BOOK':
+            text = self.langDict['Book']
+        elif self.TYPE == 'LESSON':
+            text = self.langDict['Lessons']
+        elif self.TYPE == 'IWORK':
+            text = self.langDict['Independent works']
+        elif self.TYPE == 'TEST':
+            text = self.langDict['Tests']
+        elif self.TYPE == 'ALL':
+            text = self.langDict['All']
+
+        if self.SECTION == 'ALL':
+            self.lblSection.setText(f'{text}')
+        elif self.SECTION == 'FY':
+            self.lblSection.setText(f'{text} ({self.langDict["First year"]})')
+        elif self.SECTION == 'SY':
+            self.lblSection.setText(f'{text} ({self.langDict["Second year"]})')
+
     def search(self):
         '''
         Selected section search (All, First year, Second year)
@@ -63,7 +94,7 @@ class DBInteraction:
             query += """AND Year = 1;"""
         elif self.SECTION == 'SY':
             if self.TYPE != 'ALL':
-                query += f"""AND Type = '{self.TYPE.lower()}"""
+                query += f""" AND Type = '{self.TYPE.lower()}'"""
             query += """ AND Year = 2;"""
 
         self.displayResults(query, 3,
@@ -81,15 +112,17 @@ class DBInteraction:
         Открывает полную БД со всей информацией
         :return:
         '''
-        query = f"""SELECT * from {self.DB_NAME}"""
+        query = f"""SELECT * FROM {self.DB_NAME};"""
         self.displayResults(query, 6,
-                            [self.langDict['Name'], self.langDict['Type'], self.langDict['Link']])
+                            ['id', self.langDict['Name'], self.langDict['Year'],
+                             self.langDict['Type'], self.langDict['Keywords'],
+                             self.langDict['Link']])
 
     def openDBUpdater(self):
         '''
         Opens DBUpdater dialog window
 
-        Открывает диалоговое окно для обновления базы данных
+        Открывает диалоговое окно DBUpdater
         :return:
         '''
         self.dbUpdater = DBUpdater(self, self.DB_NAME)
