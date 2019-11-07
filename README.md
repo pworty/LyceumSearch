@@ -22,6 +22,12 @@ pip install -r requirements.txt
 
 Надпись **'Все'** означает, что при нажатии кнопки, будет идти поиск по всем задачам
 
+Чтобы это изменить, нужно выбрать секцию в разделе Искать задачи
+
+
+![Искать задачи](tutorial_images/tutorial_1.jpg)
+
+
 ### And coding style tests
 
 Explain what these tests test and why
