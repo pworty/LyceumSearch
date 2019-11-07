@@ -42,7 +42,6 @@ class Main(QMainWindow, DBInteraction):
             self.close()
         event.accept()
 
-
     def closeEvent(self, event):
         '''
         Closes all windows if main is closed
