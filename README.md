@@ -1,11 +1,14 @@
 # LyceumSearch
+
 Приложение, позволяющее искать задачи в Яндекс.Лицее, такой функции на сайте нет.
+
 ## Начало работы
+
 ### Требования
 
 Для работы программы нужно установить пакеты из requirements.txt
 
-Из папки с приложением это можно сделать командой
+Из папки с приложением это можно сделать командой:
 
 ```
 pip install -r requirements.txt
@@ -15,51 +18,71 @@ pip install -r requirements.txt
 
 ### Интерфейс
 
-![Интерфейс](UI.jpg)
+![Интерфейс](tutorial_images/tutorial_0.jpg)
 
-Explain what these tests test and why
+Надпись **'Все'** означает, что при нажатии кнопки, будет идти поиск по всему (Темам, задачам, учебнику).
 
-```
-Give an example
-```
+Чтобы это изменить, нужно выбрать секцию в разделе Искать задачи.
 
-### And coding style tests
+![Искать задачи](tutorial_images/tutorial_1.jpg)
 
-Explain what these tests test and why
+##
 
-```
-Give an example
-```
+![Другие действия](tutorial_images/tutorial_2.jpg)
 
-## Deployment
+Из дополнительных возможностей можно открыть 'Полную БД', которая содержит всю информацию о всем.
 
-Add additional notes about how to deploy this on a live system
+Например при обычном выводе результатов через 'Искать задачи' будет отображаться только три поля (Название, Тип, Ссылка), в то время как 'Полная БД' содержит 6 полей
 
-## Built With
+Кнопка 'Изменить БД' открывает окно для изменения базы данных. Рекомендуется сначала посмотреть на структуру БД, нажав на предыдущую кнопку.
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+![Изменение БД](tutorial_images/tutorial_3.jpg)
 
+**_Вкратце о неочевидных полях:_**
+1. Year
+  - 1 
+  - 2
+2. Type
+  - problem (Задача)
+  - book (Учебник)
+  - lesson (Урок)
+  - iwork (Самостоятельная)
+  - test (Контрольная)
+3. Keywords (Ключевые слова для поиска, лучше писать то, что бы вы вводили в поиск, ища эту страницу)
+4. Link (Ссылка на страницу. **Самое важное удалять /solutions0000000 из ссылок на задачи, на которые вы уже загружали решения, эта ссылка индивидуальна только для вас, у других все сломается**)
+
+- **ADD RECORD**
+Добавляет новую запись
+
+- **DELETE RECORD**
+Удаляет введеный текст из всех полей
+
+- **UPDATE RECORD**
+Удаляет введеный текст из всех полей
+
+- **CLEAR**
+Удаляет введеный текст из всех полей
+
+<!-- CONTRIBUTING -->
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+```
+На данный момент буду благодарен, если вы отправите базу данных с большим количеством задач, сейчас их около 1/50 от всех, хватает только для демонстрации
+```
 
-## Versioning
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## Authors
+## Авторы
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **pworty** - *Вся работа* - [pworty](https://github.com/pworty)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
+## TODO:
 
 * Hat tip to anyone whose code was used
 * Inspiration
