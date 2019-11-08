@@ -6,25 +6,34 @@ from DBUpdater import DBUpdater
 
 
 class DBInteraction:
-    def displayResults(self, query, ColumnCount, HorizontalHeaderLabels):
+    def displayResults(self, data, ColumnCount, HorizontalHeaderLabels):
         '''
-        Displays the search result for a query
+        Displays data in tableWidgetResults
 
-        Отоброжает результат поиска по запросу
+        Отображает информацию в tableWidgetResults
+        :return:
+        '''
+        self.tableWidgetResults.setRowCount(0)
+        self.tableWidgetResults.setColumnCount(ColumnCount)
+        self.tableWidgetResults.setHorizontalHeaderLabels(HorizontalHeaderLabels)
+        for i, row in enumerate(data):
+            self.tableWidgetResults.setRowCount(self.tableWidgetResults.rowCount() + 1)
+            for j, elem in enumerate(row):
+                self.tableWidgetResults.setItem(i, j, QTableWidgetItem(str(elem)))
+        self.tableWidgetResults.resizeColumnsToContents()
+
+    def returnResults(self, query):
+        '''
+        Returns the search result for a query
+
+        Возвращает результат поиска по запросу
         :return:
         '''
         try:
             con = sqlite3.connect(self.DB_NAME + '.sqlite')
             cur = con.cursor()
             data = cur.execute(query).fetchall()
-            self.tableWidgetResults.setRowCount(0)
-            self.tableWidgetResults.setColumnCount(ColumnCount)
-            self.tableWidgetResults.setHorizontalHeaderLabels(HorizontalHeaderLabels)
-            for i, row in enumerate(data):
-                self.tableWidgetResults.setRowCount(self.tableWidgetResults.rowCount() + 1)
-                for j, elem in enumerate(row):
-                    self.tableWidgetResults.setItem(i, j, QTableWidgetItem(str(elem)))
-            self.tableWidgetResults.resizeColumnsToContents()
+            return data
         except sqlite3.Error as error:
             # Print error message into label for user to see it
             # Вывод сообщения об ошибки в надпись для того, чтобы пользователь мог видеть его
@@ -96,8 +105,8 @@ class DBInteraction:
             if self.TYPE != 'ALL':
                 query += f""" AND Type = '{self.TYPE.lower()}'"""
             query += """ AND Year = 2;"""
-
-        self.displayResults(query, 3,
+        data = self.returnResults(query)
+        self.displayResults(data, 3,
                             [self.langDict['Name'], self.langDict['Type'], self.langDict['Link']])
         # Only 3 columns are displayed to avoid confusing the user (total of 6)
         # Отображаются только 3 колонки, чтобы пользователь не запутался (всего 6)
@@ -113,7 +122,8 @@ class DBInteraction:
         :return:
         '''
         query = f"""SELECT * FROM {self.DB_NAME};"""
-        self.displayResults(query, 6,
+        data = self.returnResults(query)
+        self.displayResults(data, 6,
                             ['id', self.langDict['Name'], self.langDict['Year'],
                              self.langDict['Type'], self.langDict['Keywords'],
                              self.langDict['Link']])

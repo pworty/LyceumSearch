@@ -16,8 +16,7 @@ def buttonsConnect(self):
     self.actionProblems_All.triggered.connect(partial(self.changeSection, 'ALL', 'PROBLEM'))
     self.actionStudentsBook_All.triggered.connect(partial(self.changeSection, 'ALL', 'BOOK'))
     self.actionLessons_All.triggered.connect(partial(self.changeSection, 'ALL', 'LESSON'))
-    self.actionIndependentWorks_All.triggered.connect(
-        partial(self.changeSection, 'ALL', 'IWORK'))
+    self.actionIndependentWorks_All.triggered.connect(partial(self.changeSection, 'ALL', 'IWORK'))
     self.actionTests_All.triggered.connect(partial(self.changeSection, 'ALL', 'TEST'))
     self.actionAll_All.triggered.connect(partial(self.changeSection, 'ALL', 'ALL'))
 
