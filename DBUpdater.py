@@ -125,9 +125,9 @@ class DBUpdater(QWidget):
 
     def readFields(self):
         '''
-        Reads user input
+        Reads user input and visually formats input field
 
-        Считывает пользовательский ввод
+        Считывает пользовательский ввод и визуально форматирует поле ввода
         :return:
         '''
         self.Name = self.plainTextEditName.toPlainText().strip()
@@ -147,6 +147,8 @@ class DBUpdater(QWidget):
         self.plainTextEditId.appendPlainText(self.Id)
 
     def keyPressEvent(self, event):
+        # Close window on Esc press
+        # Закрыть окно при нажатии Esc
         if event.key() == Qt.Key_Escape:
             self.close()
         event.accept()

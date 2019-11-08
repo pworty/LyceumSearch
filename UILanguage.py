@@ -23,8 +23,10 @@ translation_ = ['Поиск', 'Ключевые слова', 'Все', 'Иска
 def UIRename(self):
     '''
     Renames UI to chosen language
+    (Executed by changeLanguage() method)
 
     Переименовывает интерфейс на выбранный язык
+    (Запускается методом changeLanguage())
     :param self:
     :return:
     '''
@@ -78,6 +80,8 @@ def changeLanguage(self, language):
     :return:
     '''
     self.LANGUAGE = language
+    # Update language in settings.txt
+    # Обновить язык в settings.txt
     with open("settings.txt", "r") as f:
         data = f.readlines()
     with open('settings.txt', "w") as f:
