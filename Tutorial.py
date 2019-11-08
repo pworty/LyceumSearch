@@ -11,7 +11,7 @@ class Tutorial(QWidget):
         self.initUI()
 
     def initUI(self):
-        uic.loadUi('Tutorial.ui', self)
+        uic.loadUi('UIs/Tutorial.ui', self)
         # self.pushButtonNext.clicked.connect(self.nextStep)
         self.checkBoxShowTutorial.stateChanged.connect(self.showTutorial)
         if self.SHOW_TUTORIAL == 1:

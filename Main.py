@@ -20,7 +20,7 @@ class Main(QMainWindow, DBInteraction):
         self.initUI()
 
     def initUI(self):
-        uic.loadUi('LyceumSearch.ui', self)
+        uic.loadUi('UIs/LyceumSearch.ui', self)
         self.center()
         self.show()
 

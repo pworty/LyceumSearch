@@ -10,7 +10,7 @@ class ResetDialog(QWidget):
 
     def initUI(self):
         self.setFixedSize(300, 100)
-        uic.loadUi('ResetDialog.ui', self)
+        uic.loadUi('UIs/ResetDialog.ui', self)
         if self.LANGUAGE == 'RU':
             self.labelMessage.setText('Настройки\nбыли сброшены!')
         elif self.LANGUAGE == 'EN':

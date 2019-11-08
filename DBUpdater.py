@@ -14,7 +14,7 @@ class DBUpdater(QWidget):
         self.initUI()
 
     def initUI(self):
-        uic.loadUi('DBUpdater.ui', self)
+        uic.loadUi('UIs/DBUpdater.ui', self)
         self.center()
 
         self.pushButtonAddRecord.clicked.connect(self.addRecord)
