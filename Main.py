@@ -21,7 +21,7 @@ class Main(QMainWindow, DBInteraction):
 
     def initUI(self):
         uic.loadUi('UIs/LyceumSearch.ui', self)
-
+        
         # Centers window in the middle of the screen
         # Ставит окно в центр экрана
         self.center()

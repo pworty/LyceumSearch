@@ -307,11 +307,3 @@ fabric.properties
 .idea/misc.xml
 .idea/modules.xml
 .idea/vcs.xml
-UIs/LyceumSearch.ui
-Main.py
-!/Main.py
-!/UIs/LyceumSearch.ui
-!/UIs/Tutorial.ui
-!/tutorial_dialog.py
-!/CodeTest.py
-UIs/Tutorial.ui
