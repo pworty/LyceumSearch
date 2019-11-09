@@ -10,7 +10,7 @@ from db_interaction import DBInteraction
 class Main(QMainWindow, DBInteraction):
     from center import center
     from globals import globals_init
-    from ui_language import langDict, translation_RU, ui_rename, change_language
+    from ui_language import lang_dict, translation_RU, ui_rename, change_language
     from buttons import buttons_connect
     from tutorial_dialog import open_tutorial
     from reset_dialog import reset_all

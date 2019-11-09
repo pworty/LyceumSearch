@@ -25,7 +25,7 @@ def reset_all(self):
     Сбрасывает все настройки на изначальные
     :return:
     '''
-    self.resetDialog = ResetDialog(self, self.LANGUAGE)
+    self.reset_dialog = ResetDialog(self, self.LANGUAGE)
     with open("defaults.txt", "r") as f:
         data = f.readlines()
     with open('settings.txt', "w") as f:

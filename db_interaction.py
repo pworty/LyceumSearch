@@ -54,24 +54,24 @@ class DBInteraction:
 
         text = ''
         if self.TYPE == 'PROBLEM':
-            text = self.langDict['Problems']
+            text = self.lang_dict['Problems']
         elif self.TYPE == 'BOOK':
-            text = self.langDict['Book']
+            text = self.lang_dict['Book']
         elif self.TYPE == 'LESSON':
-            text = self.langDict['Lessons']
+            text = self.lang_dict['Lessons']
         elif self.TYPE == 'IWORK':
-            text = self.langDict['Independent works']
+            text = self.lang_dict['Independent works']
         elif self.TYPE == 'TEST':
-            text = self.langDict['Tests']
+            text = self.lang_dict['Tests']
         elif self.TYPE == 'ALL':
-            text = self.langDict['All']
+            text = self.lang_dict['All']
 
         if self.SECTION == 'ALL':
             self.lblSection.setText(f'{text}')
         elif self.SECTION == 'FY':
-            self.lblSection.setText(f'{text} ({self.langDict["First year"]})')
+            self.lblSection.setText(f'{text} ({self.lang_dict["First year"]})')
         elif self.SECTION == 'SY':
-            self.lblSection.setText(f'{text} ({self.langDict["Second year"]})')
+            self.lblSection.setText(f'{text} ({self.lang_dict["Second year"]})')
 
     def search(self):
         '''
@@ -107,12 +107,12 @@ class DBInteraction:
             query += """ AND Year = 2;"""
         data = self.return_results(query)
         self.display_results(data, 3,
-                             [self.langDict['Name'], self.langDict['Type'], self.langDict['Link']])
+                             [self.lang_dict['Name'], self.lang_dict['Type'], self.lang_dict['Link']])
         # Only 3 columns are displayed to avoid confusing the user (total of 6)
         # Отображаются только 3 колонки, чтобы пользователь не запутался (всего 6)
 
-        # langDict is used to make the column names' translated
-        # langDict используется для перевода названий колнок
+        # lang_dict is used to make the column names' translated
+        # lang_dict используется для перевода названий колнок
 
     def open_full_db(self):
         '''
@@ -124,9 +124,9 @@ class DBInteraction:
         query = f"""SELECT * FROM {self.DB_NAME};"""
         data = self.return_results(query)
         self.display_results(data, 6,
-                             ['id', self.langDict['Name'], self.langDict['Year'],
-                             self.langDict['Type'], self.langDict['Keywords'],
-                             self.langDict['Link']])
+                             ['id', self.lang_dict['Name'], self.lang_dict['Year'],
+                             self.lang_dict['Type'], self.lang_dict['Keywords'],
+                             self.lang_dict['Link']])
 
     def open_db_updater(self):
         '''
@@ -135,4 +135,4 @@ class DBInteraction:
         Открывает диалоговое окно DBUpdater
         :return:
         '''
-        self.dbUpdater = DBUpdater(self, self.DB_NAME)
+        self.db_updater = DBUpdater(self, self.DB_NAME)
