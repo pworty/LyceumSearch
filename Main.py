@@ -8,7 +8,7 @@ from db_interaction import DBInteraction
 
 
 class Main(QMainWindow, DBInteraction):
-    from center import center
+    from Utility.center import center
     from globals import globals_init
     from ui_language import lang_dict, translation_RU, ui_rename, change_language
     from buttons import buttons_connect
@@ -21,7 +21,7 @@ class Main(QMainWindow, DBInteraction):
 
     def initUI(self):
         uic.loadUi('UIs/LyceumSearch.ui', self)
-        
+
         # Centers window in the middle of the screen
         # Ставит окно в центр экрана
         self.center()

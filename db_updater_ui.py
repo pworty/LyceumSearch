@@ -1,12 +1,12 @@
 import sqlite3
 
-from PyQt5 import uic, QtCore
+from PyQt5 import uic
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget
 
 
 class DBUpdater(QWidget):
-    from center import center
+    from Utility.center import center
 
     def __init__(self, *args):
         super().__init__()
