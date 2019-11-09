@@ -1,4 +1,4 @@
-def globalsInit(self):
+def globals_init(self):
     '''
     Variables init
 

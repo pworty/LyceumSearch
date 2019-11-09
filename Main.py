@@ -4,16 +4,16 @@ from PyQt5 import uic
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QApplication
 
-from DBInteraction import DBInteraction
+from db_interaction import DBInteraction
 
 
 class Main(QMainWindow, DBInteraction):
-    from Center import center
-    from globals import globalsInit
-    from UILanguage import langDict, translation_RU, UIRename, changeLanguage
-    from buttonsConnect import buttonsConnect
-    from Tutorial import openTutorial
-    from ResetDialog import resetAll
+    from center import center
+    from globals import globals_init
+    from ui_language import langDict, translation_RU, ui_rename, change_language
+    from buttons import buttons_connect
+    from tutorial_dialog import open_tutorial
+    from reset_dialog import reset_all
 
     def __init__(self):
         super().__init__()
@@ -26,16 +26,16 @@ class Main(QMainWindow, DBInteraction):
 
         # Global variables load from settings.txt
         # Загрузка глобальных переменных из settings.txt
-        self.globalsInit()
+        self.globals_init()
 
         # UI language load
         # Загрузка языка интерфейса
-        self.changeLanguage(self.LANGUAGE)
+        self.change_language(self.LANGUAGE)
 
-        self.buttonsConnect()
+        self.buttons_connect()
 
         # TODO: add a tutorial
-        # self.openTutorial('launch')
+        # self.open_tutorial('launch')
 
     def keyPressEvent(self, event):
         # TODO: fix not searching by enter while typing in search field

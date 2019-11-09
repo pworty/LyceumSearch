@@ -20,7 +20,7 @@ translation_ = ['Поиск', 'Ключевые слова', 'Все', 'Иска
                 'Тип', 'Ссылка']
 
 
-def UIRename(self):
+def ui_rename(self):
     '''
     Renames UI to chosen language
     (Executed by changeLanguage() method)
@@ -72,7 +72,7 @@ def UIRename(self):
     self.actionOpenTutorial.setText(self.langDict['Open tutorial'])
 
 
-def changeLanguage(self, language):
+def change_language(self, language):
     '''
     Ui language change
 
@@ -96,4 +96,4 @@ def changeLanguage(self, language):
         elif self.LANGUAGE == 'EN':
             self.langDict[key] = key
 
-    self.UIRename()
+    self.ui_rename()

@@ -13,11 +13,11 @@ class Tutorial(QWidget):
     def initUI(self):
         uic.loadUi('UIs/Tutorial.ui', self)
         # self.pushButtonNext.clicked.connect(self.nextStep)
-        self.checkBoxShowTutorial.stateChanged.connect(self.showTutorial)
+        self.checkBoxShowTutorial.stateChanged.connect(self.show_tutorial)
         if self.SHOW_TUTORIAL == 1:
             self.show()
 
-    def showTutorial(self, state):
+    def show_tutorial(self, state):
         if state == QtCore.Qt.Checked:
             self.SHOW_TUTORIAL = 0
         else:
@@ -38,7 +38,7 @@ class Tutorial(QWidget):
         event.accept()
 
 
-def openTutorial(self, e):
+def open_tutorial(self, e):
     '''
     Display tutorial (or not if disabled)
 

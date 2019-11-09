@@ -312,6 +312,6 @@ Main.py
 !/Main.py
 !/UIs/LyceumSearch.ui
 !/UIs/Tutorial.ui
-!/Tutorial.py
+!/tutorial_dialog.py
 !/CodeTest.py
 UIs/Tutorial.ui

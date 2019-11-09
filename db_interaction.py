@@ -2,11 +2,11 @@ import sqlite3
 
 from PyQt5.QtWidgets import QTableWidgetItem
 
-from DBUpdater import DBUpdater
+from db_updater_ui import DBUpdater
 
 
 class DBInteraction:
-    def displayResults(self, data, ColumnCount, HorizontalHeaderLabels):
+    def display_results(self, data, ColumnCount, HorizontalHeaderLabels):
         '''
         Displays data in tableWidgetResults
 
@@ -22,7 +22,7 @@ class DBInteraction:
                 self.tableWidgetResults.setItem(i, j, QTableWidgetItem(str(elem)))
         self.tableWidgetResults.resizeColumnsToContents()
 
-    def returnResults(self, query):
+    def return_results(self, query):
         '''
         Returns the search result for a query
 
@@ -42,7 +42,7 @@ class DBInteraction:
             if con:
                 con.close()
 
-    def changeSection(self, section, type):
+    def change_section(self, section, type):
         '''
         Search section change (All problems, Students book, Themes, Independent works, Tests)
 
@@ -105,16 +105,16 @@ class DBInteraction:
             if self.TYPE != 'ALL':
                 query += f""" AND Type = '{self.TYPE.lower()}'"""
             query += """ AND Year = 2;"""
-        data = self.returnResults(query)
-        self.displayResults(data, 3,
-                            [self.langDict['Name'], self.langDict['Type'], self.langDict['Link']])
+        data = self.return_results(query)
+        self.display_results(data, 3,
+                             [self.langDict['Name'], self.langDict['Type'], self.langDict['Link']])
         # Only 3 columns are displayed to avoid confusing the user (total of 6)
         # Отображаются только 3 колонки, чтобы пользователь не запутался (всего 6)
 
         # langDict is used to make the column names' translated
         # langDict используется для перевода названий колнок
 
-    def openFullDB(self):
+    def open_full_db(self):
         '''
         Opens fully detailed DB
 
@@ -122,13 +122,13 @@ class DBInteraction:
         :return:
         '''
         query = f"""SELECT * FROM {self.DB_NAME};"""
-        data = self.returnResults(query)
-        self.displayResults(data, 6,
-                            ['id', self.langDict['Name'], self.langDict['Year'],
+        data = self.return_results(query)
+        self.display_results(data, 6,
+                             ['id', self.langDict['Name'], self.langDict['Year'],
                              self.langDict['Type'], self.langDict['Keywords'],
                              self.langDict['Link']])
 
-    def openDBUpdater(self):
+    def open_db_updater(self):
         '''
         Opens DBUpdater dialog window
 

@@ -18,7 +18,7 @@ class ResetDialog(QWidget):
         self.show()
 
 
-def resetAll(self):
+def reset_all(self):
     '''
     Resets all settings to default
 
